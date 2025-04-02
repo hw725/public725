@@ -77,11 +77,11 @@ code {
     auto-fit,
     minmax(200px, 1fr)
   ); /* ✅ 최소 200px 유지 */
-  gap: 30px; /* ✅ 간격 증가 */
+  gap: 10px; /* ✅ 간격 증가 */
   width: 100%;
   max-width: 800px;
 }
-@media (max-width: 720px) {
+@media (max-width: 500px) {
   .grid-container {
     grid-template-columns: 1fr; /* ✅ 작은 화면에서는 한 줄 배치 */
   }
