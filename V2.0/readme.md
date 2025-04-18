@@ -1,0 +1,4 @@
+- RELEASE NOTE : 250418
+- 태깅원문, 어휘불러오기 삭제
+- 엑셀 붙여넣기용 데이터 생성
+- XLSX/XML 상호변환 (multi_index.py)

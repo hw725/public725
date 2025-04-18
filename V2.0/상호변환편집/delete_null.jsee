@@ -1,0 +1,3 @@
+document.selection.Find("NULL",eeFindNext | eeFindBookmark,0);
+editor.ExecuteCommandByID(4589);  // 이 문서 내의 책갈피된 줄 삭제
+editor.ExecuteCommandByID(4099);  // 저장

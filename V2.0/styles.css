@@ -1,0 +1,329 @@
+.hidden {
+  display: none;
+}
+
+/* 🌙 다크 모드 스타일 */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* ✅ 라이트 모드 section 배경 조정 */
+section {
+  background-color: #f9f9f9; /* ✅ 살짝 회색톤으로 조정 */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ✅ 카드 형태 느낌 추가 */
+  margin-bottom: 15px; /* ✅ 섹션 간 간격 확보 */
+}
+
+/* ✅ 다크 모드에서는 원래대로 유지 */
+.dark-mode section {
+  background-color: #222; /* ✅ 다크 모드에서는 기존 배경 유지 */
+  box-shadow: none; /* ✅ 다크 모드에서는 그림자 제거 */
+}
+
+/* ✅ 코드 블럭 스타일 */
+pre,
+code {
+  display: block !important;
+  white-space: pre-wrap !important;
+  padding: 6px !important;
+  border: 1px solid #444 !important;
+  width: 100%;
+  max-width: 800px;
+}
+
+.dark-mode pre,
+.dark-mode code {
+  background-color: #1e1e1e !important;
+  color: #c9d1d9 !important;
+  border: 1px solid #555 !important;
+  box-shadow: none !important;
+}
+
+/* ✅ 라이트 모드 코드 블럭 스타일 */
+.tag {
+  display: inline-block !important;
+  padding: 5px 10px !important;
+  border-radius: 4px !important;
+  font-weight: bold !important;
+  background-color: #f5f5f5 !important;
+  color: #333 !important;
+  border: 1px solid #ccc !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ✅ 다크 모드 입력 필드 & 버튼 스타일 */
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea,
+.dark-mode button {
+  background: #333 !important;
+  color: white !important;
+  border: 1px solid #555 !important;
+}
+
+.dark-mode .search-results {
+  background: #333;
+  color: white;
+  border-color: #666;
+}
+
+/* ✅ 2x2 그리드 레이아웃 */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* ✅ 최소 200px 유지 */
+  gap: 10px; /* ✅ 간격 증가 */
+  width: 100%;
+  max-width: 800px;
+}
+@media (max-width: 500px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* ✅ 작은 화면에서는 한 줄 배치 */
+  }
+}
+
+/* ✅ 개별 그리드 아이템 크기 조정 */
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* ✅ 입력 필드 크기 균일화 */
+}
+
+/* ✅ 체크박스 스타일 */
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* 🌟 3. 검색 결과 박스 스타일 */
+.search-results {
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  background: white;
+  width: 200px;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 🌟 4. 검색 결과 개별 항목 스타일 (entry-item만 적용) */
+.entry-item {
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 🌟 5. 검색 결과 항목에 마우스를 올렸을 때 */
+.entry-item:hover {
+  background: #f0f0f0;
+}
+
+/* ✅ 입력 필드, 선택 박스 너비 균일화 */
+input:not([type="checkbox"]),
+select,
+textarea {
+  width: 100%;
+  max-width: 100%; /* ✅ 너비 강제 통일 */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box; /* ✅ `select`의 너비 계산 방식 맞춤 */
+}
+
+/* ✅ `select` 요소의 크기 조정 */
+select {
+  appearance: none; /* ✅ 브라우저 기본 스타일 제거 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 30px; /* ✅ 오른쪽 패딩 유지 */
+  background-color: white;
+}
+button {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3 !important;
+}
+
+.dark-mode button:hover {
+  background-color: #444 !important;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* ✅ 태그 스타일 */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ✅ 다크 모드 태그 스타일 유지 */
+.dark-mode .legend {
+  background-color: #333 !important;
+  border-color: #555 !important;
+}
+
+.dark-mode .legend code,
+.dark-mode .legend .tag {
+  display: inline-block !important;
+  border-radius: 5px !important;
+  padding: 5px 10px !important;
+  font-weight: bold !important;
+  color: white !important;
+  border: 1px solid #666 !important;
+}
+
+.dark-mode .tag {
+  background-color: #444 !important; /* ✅ 다크 모드 태그 배경색 조정 */
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+
+/* ✅ 번역용례 간격 조정 */
+.grid-container + .grid-container {
+  margin-top: 50px;
+}
+
+/* ✅ 불러오기 버튼 & 입력 필드 정렬 */
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%; /* ✅ 추가: 입력 그룹 너비 통일 */
+}
+
+.input-group input,
+.input-group button {
+  flex: 1;
+  width: 48%;
+  min-width: 180px;
+  max-width: 400px;
+}
+
+/* ✅ textarea 크기 조정 */
+textarea {
+  width: 100%;
+  max-width: 800px;
+  height: 100px; /* ✅ 변경: 높이 고정 */
+  resize: vertical;
+}
+.align-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100%;
+}
+
+/* ✅ 코드 블럭 스타일 */
+pre,
+code {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* ✅ 2x2 그리드 레이아웃 */
+.grid-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* ✅ 체크박스 스타일 */
+input[type="checkbox"] {
+  width: 18px;
+}
+
+/* ✅ 입력 필드 및 버튼 스타일 */
+input:not([type="checkbox"]),
+select,
+textarea,
+button {
+  width: 100%;
+  max-width: 800px;
+}
+
+textarea {
+  width: 100%;
+  max-width: 800px;
+}
+
+button {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* ✅ 버튼 그룹 간격 추가 */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* ✅ 버튼 간격 조정 */
+}
+
+.button-group button {
+  flex: 1;
+  max-width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.button-group button:hover {
+  background-color: #0056b3;
+}
+
+/* ✅ 불러오기 버튼 정렬 */
+.input-group input,
+.input-group button {
+  flex: 1;
+  width: 48%;
+  min-width: 180px;
+  max-width: 400px;
+}
