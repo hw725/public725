@@ -33,7 +33,8 @@ def xml_to_dataframe(xml_file_path):
         for 예 in 항목.findall("./번역용례/용례"):
             예목록.append({
                 "용례 식별자": 예.get("식별자", ""),
-                "출전정보": (예.findtext("출전정보") or "").strip(),
+                "출전정보 식별자": 예.find("출전정보").get("식별자", "") if 예.find("출전정보") is not None else "",
+                "출전정보": (예.find("출전정보").text.strip() if 예.find("출전정보") is not None else ""),
                 "원문": (예.findtext("원문") or "").strip(),
                 "번역문": (예.findtext("번역문") or "").strip()
             })
@@ -60,11 +61,12 @@ def xml_to_dataframe(xml_file_path):
             if i <= len(item["번역용례"]):
                 ex = item["번역용례"][i - 1]
                 row[(f"번역용례{i}", "용례 식별자")] = ex["용례 식별자"]
+                row[(f"번역용례{i}", "출전정보 식별자")] = ex["출전정보 식별자"]
                 row[(f"번역용례{i}", "출전정보")] = ex["출전정보"]
                 row[(f"번역용례{i}", "원문")] = ex["원문"]
                 row[(f"번역용례{i}", "번역문")] = ex["번역문"]
             else:
-                for subtag in ["용례 식별자", "출전정보", "원문", "번역문"]:
+                for subtag in ["용례 식별자", "출전정보 식별자", "출전정보", "원문", "번역문"]:
                     row[(f"번역용례{i}", subtag)] = pd.NA
 
         row[("참조사전", "사전")] = item["참조사전"]
@@ -111,7 +113,15 @@ def dataframe_to_xml(df):
                 continue
 
             예 = ET.SubElement(번역용례, "용례", {"식별자": 식별자})
-            for subtag in ["출전정보", "원문", "번역문"]:
+
+            # 출전정보 식별자 추가
+            출전정보_식별자 = safe_get(row, (f"번역용례{i}", "출전정보 식별자"))
+            출전정보_텍스트 = safe_get(row, (f"번역용례{i}", "출전정보"))
+            if 출전정보_식별자 or 출전정보_텍스트:
+                출전정보 = ET.SubElement(예, "출전정보", {"식별자": 출전정보_식별자})
+                출전정보.text = 출전정보_텍스트
+
+            for subtag in ["원문", "번역문"]:
                 subel = ET.SubElement(예, subtag)
                 subel.text = safe_get(row, (f"번역용례{i}", subtag))
 

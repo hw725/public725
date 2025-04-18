@@ -361,7 +361,7 @@
       console.log("1. XML 데이터 생성 시작");
 
       // 값이 없을 경우 "NULL"을 기본값으로 설정
-      const getValue = (id) => document.getElementById(id)?.value || "NULL";
+      const getValue = (id) => document.getElementById(id)?.value || "";
 
       let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n`;
       xmlContent += `  <어휘항목 식별자="${getValue("entryId")}">\n`;
@@ -370,9 +370,13 @@
       xmlContent += `    <음가>${getValue("entryPronunciation")}</음가>\n`;
       xmlContent += `    <속성>${getValue("entryAttribute")}</속성>\n`;
       xmlContent += `    <어의>${getValue("entryDefinition")}</어의>\n`;
-      xmlContent += `    <어의보충>${getValue(
-        "entryDefinitionDetail"
-      )}</어의보충>\n`;
+
+      // 어의보충 태그는 값이 있을 때만 추가
+      const entryDefinitionDetail = getValue("entryDefinitionDetail");
+      if (entryDefinitionDetail.trim() !== "") {
+        xmlContent += `    <어의보충>${entryDefinitionDetail}</어의보충>\n`;
+      }
+
       xmlContent += `    <번역용례>\n`;
 
       // 첫 번째 용례
@@ -393,7 +397,7 @@
         xmlContent += `        <원문>${getValue("originalText2")}</원문>\n`;
         xmlContent += `        <번역문>${getValue(
           "translatedText2"
-        )}</번역문>\n`; // 🔹 위치 수정
+        )}</번역문>\n`;
         xmlContent += `      </용례>\n`;
       }
 
@@ -450,8 +454,15 @@
     try {
       console.log("📌 엑셀 배열 데이터 생성 시작");
 
-      const getValue = (id) => document.getElementById(id)?.value || "";
+      // 값이 없을 경우 빈 문자열("")을 기본값으로 설정
+      const getValue = (id) => {
+        const element = document.getElementById(id);
+        return element && element.value.trim() !== ""
+          ? element.value.trim()
+          : "";
+      };
 
+      // 엑셀 헤더 정의
       const header = [
         "식별자",
         "문헌명",
@@ -471,26 +482,28 @@
         "참조사전",
       ];
 
+      // 엑셀 데이터 행 생성
       const row = [
-        getValue("entryId"),
-        getValue("documentName"),
-        getValue("entryName"),
-        getValue("entryPronunciation"),
-        getValue("entryAttribute"),
-        getValue("entryDefinition"),
-        getValue("entryDefinitionDetail"),
-        getValue("identifier1"),
-        getValue("chapterNo1"),
-        getValue("chapter1"),
-        getValue("originalText1"),
-        getValue("translatedText1"),
-        getValue("identifier2"),
-        getValue("chapterNo2"),
-        getValue("chapter2"),
-        getValue("originalText2"),
-        getValue("translatedText2"),
+        getValue("entryId"), // 식별자
+        getValue("documentName"), // 문헌명
+        getValue("entryName"), // 항목
+        getValue("entryPronunciation"), // 음가
+        getValue("entryAttribute"), // 속성
+        getValue("entryDefinition"), // 어의
+        getValue("entryDefinitionDetail"), // 어의보충
+        getValue("identifier1"), // 용례 식별자1
+        getValue("chapterNo1"), // 출전정보1
+        getValue("chapter1"), // 원문1
+        getValue("originalText1"), // 번역문1
+        getValue("translatedText1"), // 번역문1
+        getValue("identifier2"), // 용례 식별자2
+        getValue("chapterNo2"), // 출전정보2
+        getValue("chapter2"), // 원문2
+        getValue("originalText2"), // 번역문2
+        getValue("translatedText2"), // 번역문2
       ];
 
+      // 참조사전 데이터 추가
       const dictionaryList = document.getElementById("dictionaryList");
       const selectedDictionaries = dictionaryList.querySelectorAll(
         "input[type='checkbox']:checked"
@@ -510,18 +523,18 @@
 
       // 미리보기 HTML 생성
       const previewHtml = `
-      <h2>엑셀 1행 배열 미리보기</h2>
-      <h3>탭 구분 텍스트</h3>
-      <textarea id="copyTextArea" style="width: 100%; height: 100px; font-family: monospace; white-space: pre-wrap;">${rowText}</textarea>
-      <button onclick="copyToClipboard('copyTextArea')">복사</button>
-      <script>
-        window.onload = function() {
-          const textarea = document.getElementById('copyTextArea');
-          textarea.select();
-          textarea.setSelectionRange(0, 99999); // iOS 호환용
-        };
-      </script>
-    `;
+        <h2>엑셀 1행 배열 미리보기</h2>
+        <h3>탭 구분 텍스트</h3>
+        <textarea id="copyTextArea" style="width: 100%; height: 100px; font-family: monospace; white-space: pre-wrap;">${rowText}</textarea>
+        <button onclick="copyToClipboard('copyTextArea')">복사</button>
+        <script>
+          window.onload = function() {
+            const textarea = document.getElementById('copyTextArea');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // iOS 호환용
+          };
+        </script>
+      `;
 
       // 팝업 창에 미리보기 출력
       const previewWindow = window.open("", "_blank", "width=1000,height=500");
