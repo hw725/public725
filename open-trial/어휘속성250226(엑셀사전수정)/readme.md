@@ -1,2 +1,0 @@
-- RELEASE NOTE : 250225 속성필드 수동입력/한글
-- index.html, style.css, script.js
