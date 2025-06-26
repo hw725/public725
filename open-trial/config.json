@@ -1,0 +1,14 @@
+{
+  "PYTHON_URL": "https://www.python.org/ftp/python/3.10.11/python-3.10.11-embed-amd64.zip",
+  "REQUIREMENTS_URLS": [
+    "https://raw.githubusercontent.com/hw725/CSP/main/pa/requirements.txt",
+    "https://raw.githubusercontent.com/hw725/CSP/main/sa/requirements.txt"
+  ],
+  "PA_SA_ZIP_URL": "https://github.com/hw725/CSP/releases/latest/download/pa_sa_bundle.zip",
+  "EXTRA_RESOURCES": [
+    {
+      "url": "https://github.com/hw725/CSP/raw/main/stuser.dic",
+      "dest": "stuser.dic"
+    }
+  ]
+}
